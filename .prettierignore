@@ -1,0 +1,5 @@
+# Ignore artifacts:
+package.json
+node_modules
+.next
+out

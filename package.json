@@ -6,17 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write \"**/*.ts\" \"**/*.tsx\" \"**/*.js\"",
+    "typescript": "tsc -p ./tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
+    "@ant-design/cssinjs": "^1.16.2",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "antd": "^5.8.3",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.15",
+    "lodash": "^4.17.21",
     "next": "13.4.15",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "3.0.1"
   }
 }
