@@ -1,31 +1,53 @@
-import BasicLineChart from '@/components/BasicLineChart'
+import Home from '@/screens/Home'
+import Head from 'next/head'
 import { GetStaticProps } from 'next/types'
-import { useEffect } from 'react'
 
-const Index = ({ data }: any) => {
-  useEffect(() => {
-    console.log(data.data)
-  }, [data])
-
+const Index = ({ eng, toDate }: FetchedData) => {
   return (
     <>
-      <BasicLineChart data={data.data} />
+      <Head>
+        <title>MSD Assignment</title>
+        <meta name="description" content="MSD Assignment" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+
+      <Home eng={eng} toDate={toDate} />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps<{}> = async () => {
-  const endpoint =
-    'https://api.coronavirus.data.gov.uk/v1/data?' +
-    'filters=areaType=nation;areaName=england&' +
-    'structure={"date":"date","newCases":"newCasesByPublishDate"}'
+  const endpoint = 'https://api.coronavirus.data.gov.uk/v1/data?'
 
-  const response = await fetch(endpoint)
-  const data = await response.json()
+  const filtersEng = 'filters=areaType=nation;areaName=england'
+  const filtersToDate = `filters=areaType=nation;date=2023-08-01`
+
+  const structureEng = {
+    date: 'date',
+    newCases: 'newCasesByPublishDate',
+  }
+  const structureToDate = {
+    areaName: 'areaName',
+    cumCasesByPublishDate: 'cumCasesByPublishDate',
+  }
+
+  const requestEng = `${endpoint}${filtersEng}&structure=${JSON.stringify(
+    structureEng
+  )}`
+  const requestToDate = `${endpoint}${filtersToDate}&structure=${JSON.stringify(
+    structureToDate
+  )}`
+
+  const responseEng = await fetch(requestEng)
+  const responseToDate = await fetch(requestToDate)
+
+  const dataEng = await responseEng.json()
+  const dataToDate = await responseToDate.json()
 
   return {
     props: {
-      data,
+      eng: dataEng,
+      toDate: dataToDate,
     },
   }
 }
