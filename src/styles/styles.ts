@@ -1,5 +1,5 @@
-import { Gutter } from "antd/es/grid/row"
-import { CSSProperties } from "react"
+import { Gutter } from 'antd/es/grid/row'
+import { CSSProperties } from 'react'
 
 export const headerStyles: CSSProperties = {
   backgroundColor: 'white',
@@ -17,7 +17,7 @@ export const textStyles: CSSProperties = {
 
 export const contentStyles: CSSProperties = {
   padding: '0 24px',
-  minHeight: 'calc(100vh - 64px)',
+  minHeight: 'calc(100vh - 128px)',
 }
 
 export const breadcrumbStyles: CSSProperties = {
@@ -42,17 +42,29 @@ export const cardStyles: CSSProperties = {
 }
 
 export const chartWrapperStyles: CSSProperties = {
-  padding: '20px', 
+  padding: '20px',
 }
 
 export const chartBottomRowStyles: CSSProperties = {
-  padding: '0 20px 8px', 
+  padding: '0 20px 8px',
 }
 
 export const titleStyles: CSSProperties = {
   margin: 0,
-  padding: '12px 0 0 20px', 
+  padding: '12px 0 0 20px',
 }
 
-export const iconWrapperStyles: CSSProperties = {
+export const iconWrapperStyles: CSSProperties = {}
+
+export const footerStyles: CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+  height: '64px',
+}
+
+export const footerIconStyles: CSSProperties = {
+  color: 'rgba(0, 0, 0, 0.25)',
+  fontSize: '24px',
 }

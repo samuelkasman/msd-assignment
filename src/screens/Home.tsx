@@ -4,17 +4,22 @@ import {
   AlignLeftOutlined,
   DownloadOutlined,
   FilterOutlined,
+  GithubOutlined,
+  LinkedinOutlined,
 } from '@ant-design/icons'
-import { Content } from 'antd/es/layout/layout'
+import { Content, Footer } from 'antd/es/layout/layout'
 import {
   breadcrumbStyles,
   contentStyles,
+  footerIconStyles,
+  footerStyles,
   rowGutter,
   rowStyles,
 } from '@/styles/styles'
 import Card from '@/components/Card'
 import Header from '@/components/Header'
 import CumulativeCasesChart from '@/components/CumulativeCasesChart'
+import Link from 'next/link'
 
 const Home = ({ eng, toDate }: FetchedData) => {
   const { Paragraph } = Typography
@@ -70,6 +75,18 @@ const Home = ({ eng, toDate }: FetchedData) => {
           </Col>
         </Row>
       </Content>
+
+      <Footer style={footerStyles}>
+        <Space size="large">
+          <Link href="https://github.com/samuelkasman/msd-assignment">
+            <GithubOutlined style={footerIconStyles} />
+          </Link>
+
+          <Link href="https://www.linkedin.com/in/samuelkasman666/">
+            <LinkedinOutlined style={footerIconStyles} />
+          </Link>
+        </Space>
+      </Footer>
     </Layout>
   )
 }
