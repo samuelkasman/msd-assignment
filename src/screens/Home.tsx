@@ -6,6 +6,7 @@ import {
   FilterOutlined,
   GithubOutlined,
   LinkedinOutlined,
+  LoadingOutlined,
 } from '@ant-design/icons'
 import { Content, Footer } from 'antd/es/layout/layout'
 import {
@@ -20,8 +21,10 @@ import Card from '@/components/Card'
 import Header from '@/components/Header'
 import CumulativeCasesChart from '@/components/CumulativeCasesChart'
 import Link from 'next/link'
+import { useHome } from './useHome'
 
-const Home = ({ eng, toDate }: FetchedData) => {
+const Home = () => {
+  const { eng, engLoading, toDate, toDateLoading } = useHome()
   const { Paragraph } = Typography
 
   return (
@@ -56,8 +59,12 @@ const Home = ({ eng, toDate }: FetchedData) => {
         <Row gutter={rowGutter}>
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <Card title="New cases in England">
-              {eng?.length ? (
-                <NewCasesChart data={eng?.data} />
+              {engLoading ? (
+                <Row justify="center" align="middle">
+                  <LoadingOutlined />
+                </Row>
+              ) : eng?.length > 0 ? (
+                <NewCasesChart data={eng} />
               ) : (
                 <Paragraph type="danger">No data to display</Paragraph>
               )}
@@ -66,8 +73,12 @@ const Home = ({ eng, toDate }: FetchedData) => {
 
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
             <Card title="Cumulative cases in UK up to 01.08.2023">
-              {toDate?.length ? (
-                <CumulativeCasesChart data={toDate?.data} />
+              {toDateLoading ? (
+                <Row justify="center" align="middle">
+                  <LoadingOutlined />
+                </Row>
+              ) : toDate?.length > 0 ? (
+                <CumulativeCasesChart data={toDate} />
               ) : (
                 <Paragraph type="danger">No data to display</Paragraph>
               )}
