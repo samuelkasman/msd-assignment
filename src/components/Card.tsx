@@ -6,15 +6,17 @@ import {
   chartBottomRowStyles,
   iconWrapperStyles,
 } from '@/styles/styles'
-import { CommentOutlined } from '@ant-design/icons'
+import { CommentOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons'
 import { ReactNode } from 'react'
 
 interface CardProps {
   title: string
+  isLiked?: boolean
+  onLikeClick?: () => void
   children: ReactNode
 }
 
-const Card = ({ title, children }: CardProps) => {
+const Card = ({ title, isLiked, onLikeClick, children }: CardProps) => {
   const { Text, Title } = Typography
 
   return (
@@ -37,7 +39,13 @@ const Card = ({ title, children }: CardProps) => {
 
         <Text type="secondary">
           <Space size="small" style={iconWrapperStyles}>
-            3<CommentOutlined />
+            {isLiked ? (
+              <HeartFilled onClick={onLikeClick} />
+            ) : (
+              <HeartOutlined onClick={onLikeClick} />
+            )}{' '}
+            3
+            <CommentOutlined />
           </Space>
         </Text>
       </Row>

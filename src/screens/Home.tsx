@@ -22,10 +22,40 @@ import Header from '@/components/Header'
 import CumulativeCasesChart from '@/components/CumulativeCasesChart'
 import Link from 'next/link'
 import { useHome } from './useHome'
+import { trpc } from '@/utils/trpc'
 
 const Home = () => {
   const { eng, engLoading, toDate, toDateLoading } = useHome()
   const { Paragraph } = Typography
+
+  const utils = trpc.useContext()
+  const chartsQuery = trpc.chart.list.useInfiniteQuery({ limit: 2 })
+
+  const lineChartLike = chartsQuery?.data?.pages[0].items.find(
+    (item) => item.id === 'line-chart'
+  )?.isLiked
+  const pieChartLike = chartsQuery?.data?.pages[0].items.find(
+    (item) => item.id === 'pie-chart'
+  )?.isLiked
+
+  const updateChart = trpc.chart.update.useMutation({
+    async onSuccess() {
+      // refetches charts after update
+      await utils.chart.list.invalidate()
+    },
+  })
+
+  const updateChartLike = async (id: string, isLiked: boolean) => {
+    await updateChart.mutateAsync({ id, isLiked })
+  }
+
+  const toggleLineChartLike = async () => {
+    await updateChartLike('line-chart', !lineChartLike)
+  }
+
+  const togglePieChartLike = async () => {
+    await updateChartLike('pie-chart', !pieChartLike)
+  }
 
   return (
     <Layout>
@@ -58,7 +88,11 @@ const Home = () => {
 
         <Row gutter={rowGutter}>
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <Card title="New cases in England">
+            <Card
+              title="New cases in England"
+              isLiked={lineChartLike}
+              onLikeClick={toggleLineChartLike}
+            >
               {engLoading ? (
                 <Row justify="center" align="middle">
                   <LoadingOutlined />
@@ -72,7 +106,11 @@ const Home = () => {
           </Col>
 
           <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-            <Card title="Cumulative cases in UK up to 01.08.2023">
+            <Card
+              title="Cumulative cases in UK up to 01.08.2023"
+              isLiked={pieChartLike}
+              onLikeClick={togglePieChartLike}
+            >
               {toDateLoading ? (
                 <Row justify="center" align="middle">
                   <LoadingOutlined />
