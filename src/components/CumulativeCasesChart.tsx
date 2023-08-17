@@ -37,4 +37,4 @@ const CumulativeCasesChart = ({ data }: CumulativeCasesChartProps) => {
   )
 }
 
-export default CumulativeCasesChart
+export default React.memo(CumulativeCasesChart)

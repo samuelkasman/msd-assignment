@@ -30,4 +30,4 @@ const NewCasesChart = ({ data }: NewCasesChartProps) => {
   )
 }
 
-export default NewCasesChart
+export default React.memo(NewCasesChart)
